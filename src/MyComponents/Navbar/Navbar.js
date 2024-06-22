@@ -88,7 +88,7 @@ export const Navbar = ({ setShowLoginForm, searchQuery, setSearchQuery }) => {
         >
           <div className="relative mt-3 md:hidden">
             <div
-              className="absolute inset-y-0 start-0 flex items-center ps-3 cursor-pointer border-2"
+              className="absolute inset-y-0 start-0 flex items-center ps-3 cursor-pointer"
               onClick={ () =>{handleSearchClick();
                 handleMenuToggle();
                 }}
