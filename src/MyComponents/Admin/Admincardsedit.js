@@ -28,7 +28,7 @@ export const Admincardsedit = () => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://foodbloggingappbackend.onrender.com/get-json");
+      const response = await fetch("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/get-json");
       const data = await response.json();
       const filteredData = filterIdFromData(data);
       const transformedData = Object.keys(filteredData).map((key) => ({
@@ -91,7 +91,7 @@ export const Admincardsedit = () => {
   
   
     axios
-      .post("https://foodbloggingappbackend.onrender.com/update-json", updatedCards) // Send updatedCards instead of cards
+      .post("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/update-json", updatedCards) // Send updatedCards instead of cards
       .then((response) => {
     
         setOriginalItems(_.cloneDeep(ItemCards));

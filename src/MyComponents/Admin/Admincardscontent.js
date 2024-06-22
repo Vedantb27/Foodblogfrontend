@@ -39,7 +39,7 @@ export const Admincardscontent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://foodbloggingappbackend.onrender.com/get-json");
+        const response = await fetch("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/get-json");
         const data = await response.json();
         const filteredData = filterIdFromData(data);
         const transformedData = Object.keys(filteredData).map((key) => ({
@@ -117,7 +117,7 @@ export const Admincardscontent = () => {
   
     try {
       const response = await axios.post(
-        "https://foodbloggingappbackend.onrender.com/update-json",
+        "https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/update-json",
         updatedCards
       );
       console.log(

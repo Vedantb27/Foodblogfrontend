@@ -17,7 +17,7 @@ function Main() {
     const fetchData = async () => {
       try {
         
-        const response = await fetch("https://foodbloggingappbackend.onrender.com/get-json");
+        const response = await fetch("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/get-json");
         const data = await response.json();
         console.log(data);
          
