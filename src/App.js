@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Main from './Main';
 import './App.css';
 
+
 const router = createBrowserRouter([
   { path: "/", element: <Main /> },
 ]);
