@@ -7,6 +7,7 @@ import Admincontext from "./Admincontext";
 import { SaveChangeCard } from "./SaveChangeCard";
 import { FailedSaveCard } from "./FailedSaveCard";
 
+
 export const Admincardscontent = () => {
   const location = useLocation();
   const { itemIndex, categoryIndex } = location.state;
@@ -158,7 +159,7 @@ export const Admincardscontent = () => {
         </h1>
         <Link to="/">
           <button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 transition-all duration-200">
-            Back to menu
+            Back to Home
           </button>
         </Link>
       </header>

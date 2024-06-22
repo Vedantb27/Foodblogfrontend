@@ -6,6 +6,7 @@ import _ from "lodash";
 import { SaveChangeCard } from "./SaveChangeCard";
 import { FailedSaveCard } from "./FailedSaveCard";
 import { SavedBeforeEditCard } from "./SavedBeforeEditCard ";
+import { Link } from "react-router-dom";
 
 export const Admincardsedit = () => {
   const location = useLocation();
@@ -173,6 +174,21 @@ export const Admincardsedit = () => {
 
   return (
     <div className="h-72">
+    <header className="bg-gradient-to-r from-gray-800 to-gray-600 text-white flex justify-between items-center px-4 py-3 shadow-lg">
+        <h1 className="text-xl font-bold flex items-center">
+          <img
+            src="https://img.freepik.com/free-vector/detailed-chef-logo-template_23-2148987940.jpg?size=626&ext=jpg&ga=GA1.1.1249956578.1712072062&semt=ais_user_b"
+            alt="Logo"
+            className="h-8 w-8 mr-2"
+          />
+          My Food App
+        </h1>
+        <Link to="/">
+          <button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-700 transition-all duration-200">
+            Back to Home
+          </button>
+        </Link>
+      </header>
       <div className="h-12 sm:mx-20 flex md:justify-between justify-center flex-wrap items-center">
         <p className="text-3xl font-bold md:ml-20 ml-10">Category Items Edit</p>
         <div className="flex space-x-2">
