@@ -7,6 +7,7 @@ import { Admineditcategory } from './MyComponents/Admin/Admineditcategory';
 import {ProtectedRoute}  from './MyComponents/ProtectedRoute';
 import { AdminProvider  } from './MyComponents/Admin/Admincontext';
 import { Admincardsedit } from './MyComponents/Admin/Admincardsedit';
+import { Admincardscontent } from './MyComponents/Admin/Admincardscontent';
 
 const router = createBrowserRouter([
   { path: "/", element: <Main /> },
@@ -27,6 +28,15 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     )
   },
+  {
+    path: "/Admincardscontent",
+    element: (
+      <ProtectedRoute>
+      <Admincardscontent/>
+      </ProtectedRoute>
+    )
+  }
+  
 ]);
 
 function App() {
