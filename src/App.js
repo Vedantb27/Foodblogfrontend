@@ -1,17 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Main from './Main';
 import './App.css';
 
+const router = createBrowserRouter([
+  { path: "/", element: <Main /> },
+]);
+
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Main />} />
-        </Routes>
-      </div>
-    </Router>
+    <>
+      <RouterProvider router={router} />
+    </>
   );
 }
 

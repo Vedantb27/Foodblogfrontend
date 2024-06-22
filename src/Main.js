@@ -19,7 +19,7 @@ function Main() {
   return (
     <div className="Main">
       <ReactPlayer url="https://www.youtube.com/watch?v=dQw4w9WgXcQ" controls={true} />
-      <div>Below is the Newly fetched json</div>
+      <div>Below is the fetched json</div>
       {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : 'Loading...'}
     </div>
   );
