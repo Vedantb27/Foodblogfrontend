@@ -91,9 +91,13 @@ export const Admineditcategory = () => {
 
   const handleSaveChange = () => {
     // Send the updated cards to the server
-   
+    const token = localStorage.getItem("token");
     axios
-      .post("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/update-json", cards)
+      .post("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/update-json", cards ,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
        
         setShowSaveChangeCard(true);
