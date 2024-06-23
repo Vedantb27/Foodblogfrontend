@@ -9,7 +9,7 @@ import { SavedBeforeEditCard } from "./SavedBeforeEditCard ";
 import { Link } from "react-router-dom";
 
 export const Admineditcategory = () => {
-  const { cards, setCards, originalCards, setOriginalCards, originalData , setOriginalData } =
+  const { cards, setCards, originalCards, setOriginalCards, originalData , setOriginalData, countCategoryEffect, setCountCategoryEffect } =
     useContext(Admincontext);
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
@@ -24,7 +24,7 @@ export const Admineditcategory = () => {
        
         const response = await fetch("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/get-json");
         const data = await response.json();
-        if (!_.isEqual(originalData, data)){
+        if(!_.isEqual(originalData, data) || countCategoryEffect < 1){
           
           const filteredData = filterIdFromData(data);
           const transformedData = Object.keys(filteredData).map((key) => ({
@@ -35,6 +35,7 @@ export const Admineditcategory = () => {
           setCards(transformedData);
           setOriginalCards(_.cloneDeep(transformedData)); // Store a deep copy of the original cards
           setOriginalData(data);
+          setCountCategoryEffect(countCategoryEffect + 1);
         }
        
        

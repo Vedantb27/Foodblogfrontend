@@ -12,7 +12,7 @@ export const Admincardsedit = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { index } = location.state || { index: null };
-  const { cards, setCards ,ItemCards, setItemCards ,originalItems, setOriginalItems ,originalData, setOriginalData } = useContext(Admincontext);
+  const { cards, setCards ,ItemCards, setItemCards ,originalItems, setOriginalItems ,originalData, setOriginalData,countCardEffect, setCountCardEffect } = useContext(Admincontext);
   const [showSaveChangeCard, setShowSaveChangeCard] = useState(false);
   const [showFailedSaveCard, setShowFailedSaveCard] = useState(false);
   const [savedBeforeEditCard, setSavedBeforeEditCard  ] = useState(false);
@@ -28,7 +28,8 @@ export const Admincardsedit = () => {
     try {
       const response = await fetch("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/get-json");
       const data = await response.json();
-      if (!_.isEqual(originalData, data)){
+      if (!_.isEqual(originalData, data) || countCardEffect < 1){
+        debugger
         const filteredData = filterIdFromData(data);
         const transformedData = Object.keys(filteredData).map((key) => ({
           name: key,
@@ -39,6 +40,7 @@ export const Admincardsedit = () => {
         setOriginalItems(_.cloneDeep(transformedData[index].items));
         setItemCards(transformedData[index].items);
         setOriginalData(data);
+        setCountCardEffect(countCardEffect + 1);
       }
      
     } catch (error) {
