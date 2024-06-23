@@ -11,14 +11,14 @@ export const Loginform = ({ onClose }) => {
 
     const closeLoginform = (e) => {
         if (LoginformRef.current === e.target) {
-            onClose();
+            onClose(); 
         }
     };
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/login", { email, password });
+            const response = await axios.post(`${process.env.REACT_APP_API}/login`, { email, password });
             localStorage.setItem("token", response.data.token);
             navigate("/Admineditcategory");
         } catch (error) {

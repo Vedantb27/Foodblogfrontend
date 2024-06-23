@@ -39,7 +39,7 @@ export const Admincardscontent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/get-json");
+        const response = await fetch(`${process.env.REACT_APP_API}/get-json`);
         const data = await response.json();
         const filteredData = filterIdFromData(data);
         const transformedData = Object.keys(filteredData).map((key) => ({
@@ -107,7 +107,7 @@ export const Admincardscontent = () => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        "https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/update-json",
+        `${process.env.REACT_APP_API}/update-json`,
         updatedCards ,{
           headers: {
             Authorization: `Bearer ${token}`,

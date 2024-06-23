@@ -22,7 +22,7 @@ export const Admineditcategory = () => {
     const fetchData = async () => {
       try {
        
-        const response = await fetch("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/get-json");
+        const response = await fetch(`${process.env.REACT_APP_API}/get-json`);
         const data = await response.json();
         if(!_.isEqual(originalData, data) || countCategoryEffect < 1){
           
@@ -93,7 +93,7 @@ export const Admineditcategory = () => {
     // Send the updated cards to the server
     const token = localStorage.getItem("token");
     axios
-      .post("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/update-json", cards ,{
+      .post(`${process.env.REACT_APP_API}/update-json`, cards ,{
         headers: {
           Authorization: `Bearer ${token}`,
         },
