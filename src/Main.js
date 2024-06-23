@@ -24,7 +24,7 @@ function Main() {
         const data = await response.json();
 
         if (!_.isEqual(originalData, data)) {
-          debugger;
+        
           const filteredData = filterIdFromData(data);
           setCategoryData(filteredData);
           setOriginalData(data);
@@ -37,7 +37,7 @@ function Main() {
     fetchData();
   }, []);
 
-  console.log("This is original data", originalData);
+  
 
   const filterIdFromData = (data) => {
     const { _id, __v, ...rest } = data;
