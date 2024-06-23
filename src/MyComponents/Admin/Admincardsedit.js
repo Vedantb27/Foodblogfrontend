@@ -45,20 +45,10 @@ export const Admincardsedit = () => {
   };
 
   const filterIdFromData = (data) => {
-    const filteredData = {};
-    Object.keys(data).forEach((key) => {
-      if (key !== "_id" && key !== "__v") {
-        if (Array.isArray(data[key])) {
-          filteredData[key] = data[key].map((item) => filterIdFromData(item));
-        } else if (typeof data[key] === "object") {
-          filteredData[key] = filterIdFromData(data[key]);
-        } else {
-          filteredData[key] = data[key];
-        }
-      }
-    });
-    return filteredData;
+    const { _id, __v, ...rest } = data;
+    return rest;
   };
+
 
   const handleSaveChange = () => {
     const updatedCards = [...cards];
