@@ -1,31 +1,43 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import './App.css';
-import { Navbar } from './MyComponents/Navbar/Navbar';
-import { Corouselnew } from './MyComponents/Corousel/Corouselnew';
-import { Categorymain } from './MyComponents/Category/Categorymain';
-import { Loginform } from './MyComponents/Navbar/Loginform';
-import { NoResultsFound } from './MyComponents/Category/NoResultsFound';
+import React, { useState, useEffect, useMemo ,  useContext } from "react";
+import "./App.css";
+import { Navbar } from "./MyComponents/Navbar/Navbar";
+import { Corouselnew } from "./MyComponents/Corousel/Corouselnew";
+import { Categorymain } from "./MyComponents/Category/Categorymain";
+import { Loginform } from "./MyComponents/Navbar/Loginform";
+import { NoResultsFound } from "./MyComponents/Category/NoResultsFound";
+import _ from "lodash";
+import Admincontext from "./MyComponents/Admin/Admincontext";
 
 function Main() {
-  const [categoryData, setCategoryData] = useState({});
+  const {categoryData, setCategoryData} = useContext(Admincontext);
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
-
+  const {originalData, setOriginalData}= useContext(Admincontext);
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/get-json");
+        const response = await fetch(
+          "https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/get-json"
+        );
         const data = await response.json();
-        console.log(data);
-        const filteredData = filterIdFromData(data);
-        setCategoryData(filteredData);
+
+        if (!_.isEqual(originalData, data)) {
+          debugger;
+          const filteredData = filterIdFromData(data);
+          setCategoryData(filteredData);
+          setOriginalData(data);
+        } 
+       
       } catch (error) {
         console.log("error fetching the data", error);
       }
     };
     fetchData();
   }, []);
+
+  console.log("This is original data", originalData);
 
   const filterIdFromData = (data) => {
     const { _id, __v, ...rest } = data;
@@ -51,7 +63,10 @@ function Main() {
     return filteredData;
   };
 
-  const filteredCategoryData = useMemo(() => filterData(categoryData, searchQuery), [categoryData, searchQuery]);
+  const filteredCategoryData = useMemo(
+    () => filterData(categoryData, searchQuery),
+    [categoryData, searchQuery]
+  );
 
   useEffect(() => {
     setIsEmpty(Object.keys(filteredCategoryData).length === 0);
