@@ -29,7 +29,7 @@ export const Admincardsedit = () => {
       const response = await fetch("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/get-json");
       const data = await response.json();
       if (!_.isEqual(originalData, data) || countCardEffect < 1){
-        debugger
+       
         const filteredData = filterIdFromData(data);
         const transformedData = Object.keys(filteredData).map((key) => ({
           name: key,
