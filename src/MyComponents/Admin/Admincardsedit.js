@@ -82,10 +82,14 @@ export const Admincardsedit = () => {
     });
   
     setCards(updatedCards);
-  
-  
+   
+    const token = localStorage.getItem("token");
     axios
-      .post("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/update-json", updatedCards) // Send updatedCards instead of cards
+      .post("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/update-json", updatedCards ,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }) // Send updatedCards instead of cards
       .then((response) => {
     
         setOriginalItems(_.cloneDeep(ItemCards));

@@ -103,12 +103,16 @@ export const Admincardscontent = () => {
     setCards(updatedCards);
 
     
-    console.log("This is an updated cards :", updatedCards);
-  
+   
+    const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
         "https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/update-json",
-        updatedCards
+        updatedCards ,{
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log(
         
