@@ -68,7 +68,7 @@ export const Admincardscontent = () => {
         originalIngredients.current = selectedItem.ingredients;
         originalYoutubeUrl.current = selectedItem.youtubeUrl;
 
-        console.log("Fetched and transformed data:", transformedData);
+       
       } catch (error) {
         console.log("Error fetching the data", error);
       }

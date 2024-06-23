@@ -12,9 +12,7 @@ export const Admincardsedit = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { index } = location.state || { index: null };
-  const { cards, setCards } = useContext(Admincontext);
-  const [ItemCards, setItemCards] = useState([]);
-  const [originalItems, setOriginalItems] = useState([]);
+  const { cards, setCards ,ItemCards, setItemCards ,originalItems, setOriginalItems ,originalData, setOriginalData } = useContext(Admincontext);
   const [showSaveChangeCard, setShowSaveChangeCard] = useState(false);
   const [showFailedSaveCard, setShowFailedSaveCard] = useState(false);
   const [savedBeforeEditCard, setSavedBeforeEditCard  ] = useState(false);
@@ -30,15 +28,19 @@ export const Admincardsedit = () => {
     try {
       const response = await fetch("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/get-json");
       const data = await response.json();
-      const filteredData = filterIdFromData(data);
-      const transformedData = Object.keys(filteredData).map((key) => ({
-        name: key,
-        imageId: filteredData[key].imageId,
-        items: filteredData[key].items,
-      }));
-      setCards(transformedData);
-      setOriginalItems(_.cloneDeep(transformedData[index].items));
-      setItemCards(transformedData[index].items);
+      if (!_.isEqual(originalData, data)){
+        const filteredData = filterIdFromData(data);
+        const transformedData = Object.keys(filteredData).map((key) => ({
+          name: key,
+          imageId: filteredData[key].imageId,
+          items: filteredData[key].items,
+        }));
+        setCards(transformedData);
+        setOriginalItems(_.cloneDeep(transformedData[index].items));
+        setItemCards(transformedData[index].items);
+        setOriginalData(data);
+      }
+     
     } catch (error) {
       console.log("Error fetching the data", error);
     }

@@ -9,7 +9,7 @@ import { SavedBeforeEditCard } from "./SavedBeforeEditCard ";
 import { Link } from "react-router-dom";
 
 export const Admineditcategory = () => {
-  const { cards, setCards, originalCards, setOriginalCards } =
+  const { cards, setCards, originalCards, setOriginalCards, originalData , setOriginalData } =
     useContext(Admincontext);
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
@@ -21,16 +21,22 @@ export const Admineditcategory = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+       
         const response = await fetch("https://foodblogbackend-git-main-mern-food-apps-projects.vercel.app/get-json");
         const data = await response.json();
-        const filteredData = filterIdFromData(data);
-        const transformedData = Object.keys(filteredData).map((key) => ({
-          name: key,
-          imageId: filteredData[key].imageId,
-          items: filteredData[key].items,
-        }));
-        setCards(transformedData);
-        setOriginalCards(_.cloneDeep(transformedData)); // Store a deep copy of the original cards
+        if (!_.isEqual(originalData, data)){
+          
+          const filteredData = filterIdFromData(data);
+          const transformedData = Object.keys(filteredData).map((key) => ({
+            name: key,
+            imageId: filteredData[key].imageId,
+            items: filteredData[key].items,
+          }));
+          setCards(transformedData);
+          setOriginalCards(_.cloneDeep(transformedData)); // Store a deep copy of the original cards
+          setOriginalData(data);
+        }
+       
        
       } catch (error) {
         console.log("error fetching the data", error);
