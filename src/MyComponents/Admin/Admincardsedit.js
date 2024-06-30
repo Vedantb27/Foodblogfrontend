@@ -17,10 +17,10 @@ export const Admincardsedit = () => {
   const [originalItems, setOriginalItems] = useState();
   const [showSaveChangeCard, setShowSaveChangeCard] = useState(false);
   const [showFailedSaveCard, setShowFailedSaveCard] = useState(false);
-  const [savedBeforeEditCard, setSavedBeforeEditCard  ] = useState(false);
-  
-  
-  
+  const [savedBeforeEditCard, setSavedBeforeEditCard] = useState(false);
+
+
+
 
   useEffect(() => {
     if (index !== null) {
@@ -30,26 +30,24 @@ export const Admincardsedit = () => {
 
   const fetchData = async () => {
     try {
-      
+
       setOriginalItems(_.cloneDeep(cards[index].items));
-        setItemCards(cards[index].items);
+      setItemCards(cards[index].items);
       const response = await fetch(`${process.env.REACT_APP_API}/get-json`);
       const data = await response.json();
-    
-       
-        const filteredData = filterIdFromData(data);
-        const transformedData = Object.keys(filteredData).map((key) => ({
-          name: key,
-          imageId: filteredData[key].imageId,
-          items: filteredData[key].items,
-        }));
-        setCards(transformedData);
-        setOriginalItems(_.cloneDeep(cards[index].items));
-        setItemCards(cards[index].items);
-       
-        
-      
-     
+      const filteredData = filterIdFromData(data);
+      const transformedData = Object.keys(filteredData).map((key) => ({
+        name: key,
+        imageId: filteredData[key].imageId,
+        items: filteredData[key].items,
+      }));
+      setCards(transformedData);
+      setOriginalItems(_.cloneDeep(cards[index].items));
+      setItemCards(cards[index].items);
+
+
+
+
     } catch (error) {
       console.log("Error fetching the data", error);
     }
@@ -63,17 +61,17 @@ export const Admincardsedit = () => {
 
   const handleSaveChange = () => {
     const updatedCards = [...cards];
-    
-    
-  
+
+
+
     // Ensure items is initialized as an array if it is not already
     if (!Array.isArray(updatedCards[index].items)) {
       updatedCards[index].items = [];
     }
-    
+
     // Clear the existing items to replace with the updated ItemCards
     updatedCards[index].items = [];
-  
+
     ItemCards.forEach((itemobj, x) => {
       const newItem = {
         cardId: updatedCards[index].items.length + 1,
@@ -84,21 +82,21 @@ export const Admincardsedit = () => {
         ingredients: '',
         youtubeUrl: ''
       };
-  
+
       updatedCards[index].items.push(newItem);
     });
-  
+
     setCards(updatedCards);
-   
+
     const token = localStorage.getItem("token");
     axios
-      .post(`${process.env.REACT_APP_API}/update-json`, updatedCards ,{
+      .post(`${process.env.REACT_APP_API}/update-json`, updatedCards, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }) // Send updatedCards instead of cards
       .then((response) => {
-    
+
         setOriginalItems(_.cloneDeep(ItemCards));
         setShowSaveChangeCard(true);
       })
@@ -107,9 +105,9 @@ export const Admincardsedit = () => {
         setShowFailedSaveCard(true);
       });
   };
-  
-  
-  
+
+
+
 
   const handleImageChange = async (e, itemIndex) => {
     const file = e.target.files[0];
@@ -118,7 +116,7 @@ export const Admincardsedit = () => {
       formData.append("file", file);
       formData.append("upload_preset", "reactFoodApp");
       formData.append("cloud_name", "dzged7hmp");
-  
+
       try {
         const response = await fetch("https://api.cloudinary.com/v1_1/dzged7hmp/image/upload", {
           method: "POST",
@@ -126,7 +124,7 @@ export const Admincardsedit = () => {
         });
         const data = await response.json();
         const imageUrl = data.url;
-  
+
         const updatedItems = [...ItemCards];
         updatedItems[itemIndex].imageId = imageUrl;
         setItemCards(updatedItems);
@@ -135,7 +133,7 @@ export const Admincardsedit = () => {
       }
     }
   };
-  
+
 
 
 
@@ -150,10 +148,10 @@ export const Admincardsedit = () => {
         },
       });
     } else {
-     
+
       setSavedBeforeEditCard(true);
     }
-    
+
   };
 
   const handleAddCard = () => {
@@ -179,7 +177,7 @@ export const Admincardsedit = () => {
 
   return (
     <div className="h-72">
-    <header className="bg-gradient-to-r from-gray-800 to-gray-600 text-white flex justify-between items-center px-4 py-3 shadow-lg">
+      <header className="bg-gradient-to-r from-gray-800 to-gray-600 text-white flex justify-between items-center px-4 py-3 shadow-lg">
         <h1 className="text-xl font-bold flex items-center">
           <img
             src="https://img.freepik.com/free-vector/detailed-chef-logo-template_23-2148987940.jpg?size=626&ext=jpg&ga=GA1.1.1249956578.1712072062&semt=ais_user_b"
@@ -306,12 +304,13 @@ export const Admincardsedit = () => {
       )}
       {
         showFailedSaveCard && (
-          <FailedSaveCard onClose ={() => setShowFailedSaveCard(false)} />
+          <FailedSaveCard onClose={() => setShowFailedSaveCard(false)} />
         )
       }
       {
-        savedBeforeEditCard && (<SavedBeforeEditCard onClose ={()=>{
-           setSavedBeforeEditCard(false)}} onSave ={()=>{handleSaveChange(); setShowSaveChangeCard() }} />)
+        savedBeforeEditCard && (<SavedBeforeEditCard onClose={() => {
+          setSavedBeforeEditCard(false)
+        }} onSave={() => { handleSaveChange(); setShowSaveChangeCard() }} />)
       }
     </div>
   );
