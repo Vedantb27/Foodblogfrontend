@@ -37,20 +37,10 @@ export const Admincardscontent = () => {
   const [newYoutubeUrl, setNewYoutubeUrl] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${process.env.REACT_APP_API}/get-json`);
-        const data = await response.json();
-        const filteredData = filterIdFromData(data);
-        const transformedData = Object.keys(filteredData).map((key) => ({
-          name: key,
-          imageId: filteredData[key].imageId,
-          items: filteredData[key].items,
-        }));
-        setCards(transformedData);
-        
-        const selectedItem = transformedData[categoryIndex].items[itemIndex];
-        
+    const updateData =() => {
+     
+        const selectedItem = cards[categoryIndex].items[itemIndex];
+      
         setYoutubeUrl(selectedItem.youtubeUrl);
         setMealDetail(selectedItem.mealDetail);
         setIngredients(selectedItem.ingredients);
@@ -69,12 +59,10 @@ export const Admincardscontent = () => {
         originalYoutubeUrl.current = selectedItem.youtubeUrl;
 
        
-      } catch (error) {
-        console.log("Error fetching the data", error);
-      }
+      
     };
-    fetchData();
-  }, [categoryIndex, itemIndex, setCards]);
+    updateData();
+  }, [categoryIndex, itemIndex]);
 
   const filterIdFromData = (data) => {
     const { _id, __v, ...rest } = data;

@@ -19,7 +19,7 @@ export const Admincardsedit = () => {
   const [showFailedSaveCard, setShowFailedSaveCard] = useState(false);
   const [savedBeforeEditCard, setSavedBeforeEditCard] = useState(false);
 
-
+  
 
 
   useEffect(() => {
@@ -33,21 +33,6 @@ export const Admincardsedit = () => {
 
       setOriginalItems(_.cloneDeep(cards[index].items));
       setItemCards(cards[index].items);
-      const response = await fetch(`${process.env.REACT_APP_API}/get-json`);
-      const data = await response.json();
-      const filteredData = filterIdFromData(data);
-      const transformedData = Object.keys(filteredData).map((key) => ({
-        name: key,
-        imageId: filteredData[key].imageId,
-        items: filteredData[key].items,
-      }));
-      setCards(transformedData);
-      setOriginalItems(_.cloneDeep(cards[index].items));
-      setItemCards(cards[index].items);
-
-
-
-
     } catch (error) {
       console.log("Error fetching the data", error);
     }
