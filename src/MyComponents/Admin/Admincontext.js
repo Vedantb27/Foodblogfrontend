@@ -7,10 +7,10 @@ export const AdminProvider = ({ children }) => {
   const [categoryData, setCategoryData] = useState({}); //main.js
   const [cards, setCards] = useState([]); // Admincategoryedit.js, Admincardsedit.js
   const [originalCards, setOriginalCards] = useState([]); //Admincategoryedit.js
-  const [ItemCards, setItemCards] = useState([]);
-  const [originalItems, setOriginalItems] = useState([]);
+ 
+  
   const [countCategoryEffect, setCountCategoryEffect] = useState(0);
-  const [countCardEffect, setCountCardEffect] = useState(0);
+  
   return (
     <Admincontext.Provider
       value={{
@@ -22,11 +22,7 @@ export const AdminProvider = ({ children }) => {
         setOriginalData,
         categoryData,
         setCategoryData,
-        ItemCards,
-        setItemCards,
-        originalItems,
-        setOriginalItems,countCategoryEffect, setCountCategoryEffect,countCardEffect, setCountCardEffect
-        
+        countCategoryEffect, setCountCategoryEffect
       }}
     >
       {children}

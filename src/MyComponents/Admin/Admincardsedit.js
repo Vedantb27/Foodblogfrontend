@@ -12,10 +12,14 @@ export const Admincardsedit = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { index } = location.state || { index: null };
-  const { cards, setCards ,ItemCards, setItemCards ,originalItems, setOriginalItems ,originalData, setOriginalData,countCardEffect, setCountCardEffect } = useContext(Admincontext);
+  const { cards, setCards } = useContext(Admincontext);
+  const [ItemCards, setItemCards] = useState([]);
+  const [originalItems, setOriginalItems] = useState();
   const [showSaveChangeCard, setShowSaveChangeCard] = useState(false);
   const [showFailedSaveCard, setShowFailedSaveCard] = useState(false);
   const [savedBeforeEditCard, setSavedBeforeEditCard  ] = useState(false);
+  
+  
   
 
   useEffect(() => {
@@ -26,9 +30,12 @@ export const Admincardsedit = () => {
 
   const fetchData = async () => {
     try {
+      
+      setOriginalItems(_.cloneDeep(cards[index].items));
+        setItemCards(cards[index].items);
       const response = await fetch(`${process.env.REACT_APP_API}/get-json`);
       const data = await response.json();
-      if (!_.isEqual(originalData, data) || countCardEffect < 1){
+    
        
         const filteredData = filterIdFromData(data);
         const transformedData = Object.keys(filteredData).map((key) => ({
@@ -37,11 +44,11 @@ export const Admincardsedit = () => {
           items: filteredData[key].items,
         }));
         setCards(transformedData);
-        setOriginalItems(_.cloneDeep(transformedData[index].items));
-        setItemCards(transformedData[index].items);
-        setOriginalData(data);
-        setCountCardEffect(countCardEffect + 1);
-      }
+        setOriginalItems(_.cloneDeep(cards[index].items));
+        setItemCards(cards[index].items);
+       
+        
+      
      
     } catch (error) {
       console.log("Error fetching the data", error);
