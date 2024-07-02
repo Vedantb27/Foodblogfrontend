@@ -71,7 +71,7 @@ export const Admineditcategory = () => {
         const data = await response.json();
         const imageUrl = data.url;
 
-        // Create a copy of the cards array
+        // Create a copy of the cards array 
         const updatedCards = [...cards];
 
         // Update the imageId of the card at the given index
