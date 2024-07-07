@@ -90,16 +90,26 @@ export const Admineditcategory = () => {
   };
 
   const handleSaveChange = () => {
-    // Send the updated cards to the server
+    // Check for duplicate names
+    const nameSet = new Set();
+    for (const card of cards) {
+      if (nameSet.has(card.name)) {
+        alert(`The category name "${card.name}" is duplicated. Please provide a unique name.`);
+        return;
+      }
+      nameSet.add(card.name);
+    }
+  
+    // If no duplicates, proceed to send the updated cards to the server
+    
     const token = localStorage.getItem("token");
     axios
-      .post(`${process.env.REACT_APP_API}/update-json`, cards ,{
+      .post(`${process.env.REACT_APP_API}/update-json`, cards, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-       
         setShowSaveChangeCard(true);
         // Update the originalCards with a deep clone of the updated cards
         setOriginalCards(_.cloneDeep(cards));
@@ -109,6 +119,7 @@ export const Admineditcategory = () => {
         setShowFailedSaveCard(true);
       });
   };
+  
 
   const handleDelete = (index) => {
     const updatedCards = cards.filter((_, i) => i !== index);

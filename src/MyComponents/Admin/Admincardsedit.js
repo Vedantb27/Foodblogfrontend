@@ -74,6 +74,7 @@ export const Admincardsedit = () => {
     setCards(updatedCards);
 
     const token = localStorage.getItem("token");
+    console.log(updatedCards);
     axios
       .post(`${process.env.REACT_APP_API}/update-json`, updatedCards, {
         headers: {
