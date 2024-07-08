@@ -46,33 +46,53 @@ export const Admincardsedit = () => {
 
   const handleSaveChange = () => {
     const updatedCards = [...cards];
-
-
-
+  
     // Ensure items is initialized as an array if it is not already
     if (!Array.isArray(updatedCards[index].items)) {
       updatedCards[index].items = [];
     }
-
+  
     // Clear the existing items to replace with the updated ItemCards
     updatedCards[index].items = [];
-
+  
+    let allValid = true; // To check if all items are valid
+    const titleSet = new Set(); // To track unique titles
+  
     ItemCards.forEach((itemobj, x) => {
       const newItem = {
         cardId: updatedCards[index].items.length + 1,
         title: itemobj.title,
         imageId: itemobj.imageId,
         type: itemobj.type,
-        mealDetail: '',
-        ingredients: '',
-        youtubeUrl: ''
+        mealDetail: itemobj.mealDetail,
+        ingredients: itemobj.ingredients,
+        youtubeUrl: itemobj. youtubeUrl
       };
-
+  
+      // Check if the title is empty
+      if (!newItem.title.trim()) {
+        alert(`The title of item at position ${x + 1} is empty. Please fill it.`);
+        allValid = false;
+      }
+  
+      // Check for duplicate titles
+      if (titleSet.has(newItem.title)) {
+        alert(`The title "${newItem.title}" is duplicated. Please change it.`);
+        allValid = false;
+      } else {
+        titleSet.add(newItem.title);
+      }
+  
       updatedCards[index].items.push(newItem);
     });
-
+  
+    // Stop function if any item is invalid
+    if (!allValid) {
+      return;
+    }
+  
     setCards(updatedCards);
-
+  
     const token = localStorage.getItem("token");
     console.log(updatedCards);
     axios
@@ -80,9 +100,8 @@ export const Admincardsedit = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }) // Send updatedCards instead of cards
+      })
       .then((response) => {
-
         setOriginalItems(_.cloneDeep(ItemCards));
         setShowSaveChangeCard(true);
       })
@@ -91,6 +110,7 @@ export const Admincardsedit = () => {
         setShowFailedSaveCard(true);
       });
   };
+  
 
 
 
