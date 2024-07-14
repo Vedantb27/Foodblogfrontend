@@ -11,7 +11,7 @@ const LoginFormComponent = ({ onShowForgotPasswordModal }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API}/login`, { email, password });
+            const response = await axios.post(`${process.env.REACT_APP_APIAUTH}/login`, { email, password });
             localStorage.setItem("token", response.data.token);
             navigate("/Admineditcategory");
         } catch (error) {

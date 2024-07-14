@@ -40,7 +40,7 @@ export const Cardscontent = () => {
   }
 
   if (!selectedCard) {
-    return <div>No data found for this card.</div>;
+    return <div></div>;
   }
 
   return (
