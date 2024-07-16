@@ -13,7 +13,7 @@ export const Categorymain = ({ categoryData }) => {
               </h1>
               <div className="category-cardsilist flex">
                 <div className="w-full hide-scrollbar category-cardsilist flex md:flex-wrap overflow-x-scroll margin-auto">
-                  {categoryData[categoryName].items.map((card, cardIndex) => {
+                  {(categoryData[categoryName]?.items ?? []).map((card, cardIndex) => {
                     return (
                       <Cards
                         key={card.cardId}
